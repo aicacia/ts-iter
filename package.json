@@ -1,6 +1,6 @@
 {
   "name": "@aicacia/iter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "aicacia iter",
   "repository": {
     "type": "git",
@@ -59,6 +59,9 @@
     "typedoc": "0",
     "typescript": "4"
   },
+  "dependencies": {
+    "@aicacia/option": "0"
+  },
   "peerDependencies": {
     "tslib": "2"
   },
@@ -74,8 +77,5 @@
       ".ts",
       ".tsx"
     ]
-  },
-  "dependencies": {
-    "@aicacia/option": "^0.1.0"
   }
 }

@@ -7,9 +7,10 @@ import type { Skip } from "./Skip";
 import type { Step } from "./Step";
 import type { Take } from "./Take";
 import type { IToMapFn, ToMap } from "./ToMap";
-import type { Unflatten, UnflattenFn } from "./Unflatten";
+import type { Unflatten, IUnflattenFn } from "./Unflatten";
 import type { Enumerate } from "./Enumerate";
 import type { Peekable } from "./Peekable";
+import type { Flatten } from "./Flatten";
 import { none, some } from "@aicacia/option";
 
 export class Iter<T>
@@ -241,7 +242,12 @@ export class Iter<T>
     return true;
   }
 
-  unflatten<U>(fn: UnflattenFn<T, U>): Unflatten<T, U>;
+  flatten<D extends number = 1>(depth?: D): Flatten<T, D>;
+  flatten(_depth: any): any {
+    throw new Error("iter/Flatten was not imported!");
+  }
+
+  unflatten<U>(fn: IUnflattenFn<T, U>): Unflatten<T, U>;
   unflatten(_fn: any): any {
     throw new Error("iter/Unflatten was not imported!");
   }

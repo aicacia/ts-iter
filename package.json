@@ -1,6 +1,6 @@
 {
   "name": "@aicacia/iter",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "aicacia iter",
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
     "clean": "rm -rf esm cjs browser types",
     "lint": "eslint . --fix",
     "prettier": "prettier --ignore-path .eslintignore --ignore-unknown --write .",
-    "preCommit": "npm run prettier && npm run lint && npm run coverage"
+    "preCommit": "npm run prettier && npm run lint && npm run coverage",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
@@ -43,10 +44,10 @@
     "@types/tape": "4",
     "@typescript-eslint/eslint-plugin": "5",
     "@typescript-eslint/parser": "5",
-    "eslint": "7",
+    "eslint": "8",
     "eslint-config-prettier": "8",
     "eslint-plugin-prettier": "4",
-    "husky": "4",
+    "husky": "8",
     "nyc": "15",
     "prettier": "2",
     "rollup-plugin-esm-import-to-url": "2",

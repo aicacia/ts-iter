@@ -1,11 +1,11 @@
 import { Iter } from "./Iter";
 
-export type UnflattenFn<T, U> = (iter: Iterator<T>) => IteratorResult<U>;
+export type IUnflattenFn<T, U> = (iter: Iterator<T>) => IteratorResult<U>;
 
 export class Unflatten<T, U> extends Iter<U> {
-  private _fn: UnflattenFn<T, U>;
+  private _fn: IUnflattenFn<T, U>;
 
-  constructor(iter: Iterator<T>, fn: UnflattenFn<T, U>) {
+  constructor(iter: Iterator<T>, fn: IUnflattenFn<T, U>) {
     super(iter as any);
     this._fn = fn;
   }

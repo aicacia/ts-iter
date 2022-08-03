@@ -257,6 +257,25 @@ tape("consume", (assert: tape.Test) => {
   assert.end();
 });
 
+tape("flatten defaults", (assert: tape.Test) => {
+  const array = iter([[0], [1, 2], [], [3, 4]])
+    .flatten()
+    .toArray();
+
+  assert.deepEqual(array, [0, 1, 2, 3, 4]);
+  assert.end();
+});
+
+tape("flatten", (assert: tape.Test) => {
+  const values = [
+    [[[0]], [1, [2]], [3, [4, [5]]], [], [[[6], [[[7, [[[8]]]]]]]]],
+  ];
+  const array = iter(values).flatten(9).toArray();
+
+  assert.deepEqual(array, [0, 1, 2, 3, 4, 5, 6, 7, 8]);
+  assert.end();
+});
+
 tape("unflatten", (assert: tape.Test) => {
   const array = iter([0, 0, 1, 1, 2, 2])
     .unflatten((iter) => {
@@ -286,6 +305,14 @@ tape("unflatten", (assert: tape.Test) => {
 
 tape("reverse", (assert: tape.Test) => {
   assert.deepEqual(iter([1, 2, 3]).reverse().toArray(), [3, 2, 1]);
+  assert.end();
+});
+
+tape("take", (assert: tape.Test) => {
+  assert.deepEqual(
+    iter([1, 2, 3, 4, 5, 6, 7, 8, 9]).skip(5).take(5).toArray(),
+    [7, 8, 9]
+  );
   assert.end();
 });
 

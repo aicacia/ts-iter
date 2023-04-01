@@ -1,4 +1,3 @@
-import type { Option } from "@aicacia/option";
 import type { Filter, IFilterBooleanFn, IFilterPredicateFn } from "./Filter";
 import type { ForEach, IForEachFn } from "./ForEach";
 import type { IMapFn, Map } from "./Map";
@@ -11,7 +10,8 @@ import type { Unflatten, IUnflattenFn } from "./Unflatten";
 import type { Enumerate } from "./Enumerate";
 import type { Peekable } from "./Peekable";
 import type { Flatten } from "./Flatten";
-import { none, some } from "@aicacia/option";
+import type { Reverse } from "./Reverse";
+import { none, some, type Option } from "@aicacia/option";
 
 export class Iter<T>
   implements
@@ -50,27 +50,27 @@ export class Iter<T>
 
   enumerate(): Enumerate<T>;
   enumerate(): any {
-    throw new Error("iter/Enumerate was not imported!");
+    throw new Error("Enumerate was not imported!");
   }
 
   peekable(): Peekable<T>;
   peekable(): any {
-    throw new Error("iter/Peekable was not imported!");
+    throw new Error("Peekable was not imported!");
   }
 
   forEach(fn: IForEachFn<T>): ForEach<T>;
   forEach(_fn: any): any {
-    throw new Error("iter/ForEach was not imported!");
+    throw new Error("ForEach was not imported!");
   }
 
   map<B>(fn: IMapFn<T, B>): Map<T, B>;
   map(_fn: any): any {
-    throw new Error("iter/Map was not imported!");
+    throw new Error("Map was not imported!");
   }
 
   merge(iter: Iterator<T>): Merge<T>;
   merge(_iter: any): any {
-    throw new Error("iter/Merge was not imported!");
+    throw new Error("Merge was not imported!");
   }
 
   concat(iter: Iterator<T>): Merge<T> {
@@ -80,22 +80,22 @@ export class Iter<T>
   filter<S extends T>(fn: IFilterPredicateFn<T, S>): Filter<T, S>;
   filter(fn: IFilterBooleanFn<T>): Filter<T, T>;
   filter(_fn: any): any {
-    throw new Error("iter/Filter was not imported!");
+    throw new Error("Filter was not imported!");
   }
 
   step(step: number): Step<T>;
   step(_step: any): any {
-    throw new Error("iter/Step was not imported!");
+    throw new Error("Step was not imported!");
   }
 
   skip(skip: number): Skip<T>;
   skip(_skip: any): any {
-    throw new Error("iter/Skip was not imported!");
+    throw new Error("Skip was not imported!");
   }
 
   take(count: number): Take<T>;
   take(_count: any): any {
-    throw new Error("iter/Take was not imported!");
+    throw new Error("Take was not imported!");
   }
 
   toMap<K extends string | number | symbol, V>(
@@ -103,7 +103,21 @@ export class Iter<T>
     valueFn?: IToMapFn<T, V>
   ): ToMap<T, K, V>;
   toMap(_keyFn: any, _valueFn: any): any {
-    throw new Error("iter/ToMap was not imported!");
+    throw new Error("ToMap was not imported!");
+  }
+
+  flatten<D extends number = 1>(depth?: D): Flatten<T, D>;
+  flatten(_depth: any): any {
+    throw new Error("Flatten was not imported!");
+  }
+
+  unflatten<U>(fn: IUnflattenFn<T, U>): Unflatten<T, U>;
+  unflatten(_fn: any): any {
+    throw new Error("Unflatten was not imported!");
+  }
+
+  reverse(): Reverse<T> {
+    throw new Error("Reverse was not imported!");
   }
 
   count() {
@@ -242,16 +256,6 @@ export class Iter<T>
     return true;
   }
 
-  flatten<D extends number = 1>(depth?: D): Flatten<T, D>;
-  flatten(_depth: any): any {
-    throw new Error("iter/Flatten was not imported!");
-  }
-
-  unflatten<U>(fn: IUnflattenFn<T, U>): Unflatten<T, U>;
-  unflatten(_fn: any): any {
-    throw new Error("iter/Unflatten was not imported!");
-  }
-
   reduce<C>(acc: C, fn: (acc: C, value: T, index: number) => C): C {
     let next = this.next();
 
@@ -262,10 +266,6 @@ export class Iter<T>
     }
 
     return acc;
-  }
-
-  reverse() {
-    return iter(this.toArray().reverse());
   }
 }
 

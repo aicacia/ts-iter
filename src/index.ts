@@ -9,6 +9,7 @@ export { ForEach, type IForEachFn } from "./ForEach";
 export { Map, type IMapFn } from "./Map";
 export { Merge } from "./Merge";
 export { Peekable } from "./Peekable";
+export { Reverse } from "./Reverse";
 export { Skip } from "./Skip";
 export { Step } from "./Step";
 export { Take } from "./Take";

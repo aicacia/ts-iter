@@ -3,11 +3,11 @@ import { Iter } from "./Iter";
 export type IMapFn<A, B> = (value: A, index: number) => B;
 
 export class Map<A, B> extends Iter<B> {
-  private _fn: (tuple: [value: A, index: number]) => B;
+  private _fn: IMapFn<A, B>;
 
   constructor(iter: Iterator<A>, fn: IMapFn<A, B>) {
-    super(iter as any as Iterator<B>);
-    this._fn = ([value, index]) => fn(value, index);
+    super(iter as any);
+    this._fn = fn;
   }
 
   next(): IteratorResult<B, undefined> {
@@ -16,7 +16,11 @@ export class Map<A, B> extends Iter<B> {
     if (next.done) {
       return next;
     } else {
-      return { done: false, value: this._fn(next.value as any) };
+      const [value, index] = next.value;
+      return {
+        done: false,
+        value: this._fn(value as any, index),
+      };
     }
   }
 }

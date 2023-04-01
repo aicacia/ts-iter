@@ -1,3 +1,27 @@
+export {
+  AsyncIter,
+  asyncIter,
+  AsyncEnumerate,
+  AsyncFilter,
+  type IAsyncFilterBooleanFn,
+  type IAsyncFilterPredicateFn,
+  AsyncFlatten,
+  AsyncForEach,
+  type IAsyncForEachFn,
+  AsyncMap,
+  type IAsyncMapFn,
+  AsyncMerge,
+  AsyncPeekable,
+  AsyncReverse,
+  AsyncSkip,
+  AsyncStep,
+  AsyncTake,
+  AsyncToMap,
+  type IAsyncToMapFn,
+  AsyncUnflatten,
+  type IAsyncUnflattenFn,
+} from "./async";
+
 export { Iter, iter } from "./Iter";
 export { Enumerate } from "./Enumerate";
 export {

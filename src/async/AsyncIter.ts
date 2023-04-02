@@ -277,15 +277,26 @@ export class AsyncIter<T>
 }
 
 export function asyncIter<T>(
-  value: T[] | Iterator<T> | AsyncIter<T> | Iterable<T>
+  value:
+    | T[]
+    | Iterator<T>
+    | AsyncIterator<T>
+    | AsyncIter<T>
+    | AsyncIterable<T>
+    | Iterable<T>
 ): AsyncIter<T>;
 export function asyncIter<O>(
-  value: O | Iterable<[keyof O, O[keyof O]]>
+  value:
+    | O
+    | Iterable<[keyof O, O[keyof O]]>
+    | AsyncIterable<[keyof O, O[keyof O]]>
 ): AsyncIter<[keyof O, O[keyof O]]>;
 
 export function asyncIter(value: any): AsyncIter<any> {
   if (value != null) {
-    if (typeof value[Symbol.iterator] === "function") {
+    if (typeof value[Symbol.asyncIterator] === "function") {
+      return new AsyncIter(value[Symbol.asyncIterator]());
+    } else if (typeof value[Symbol.iterator] === "function") {
       return new AsyncIter(value[Symbol.iterator]());
     } else if (typeof value.next === "function") {
       if (value instanceof AsyncIter) {

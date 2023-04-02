@@ -43,6 +43,20 @@ tape("async custom asyncIter", async (assert: tape.Test) => {
   assert.end();
 });
 
+tape("async asyncIter generator", async (assert: tape.Test) => {
+  async function* generator() {
+    for (let i = 0; i < 3; i++) {
+      yield i;
+    }
+  }
+
+  const result = asyncIter(generator());
+
+  assert.deepEqual(await result.toArray(), [0, 1, 2]);
+
+  assert.end();
+});
+
 tape("async asyncIter", async (assert: tape.Test) => {
   const result = await asyncIter([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     .skip(1)

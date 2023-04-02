@@ -1,3 +1,4 @@
+import { swap } from "../Enumerate";
 import { AsyncIter } from "./AsyncIter";
 
 export class AsyncEnumerate<T> extends AsyncIter<[number, T]> {
@@ -20,11 +21,3 @@ export class AsyncEnumerate<T> extends AsyncIter<[number, T]> {
 AsyncIter.prototype.enumerate = function enumerate() {
   return new AsyncEnumerate(this);
 };
-
-function swap<A, B>(array: [A, B]): [B, A] {
-  const tmp = array[0],
-    newArray: [B, A] = array as any;
-  newArray[0] = array[1];
-  newArray[1] = tmp;
-  return newArray;
-}

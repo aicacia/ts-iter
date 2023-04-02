@@ -17,7 +17,6 @@ export {
   AsyncStep,
   AsyncTake,
   AsyncToMap,
-  type IAsyncToMapFn,
   AsyncUnflatten,
   type IAsyncUnflattenFn,
 } from "./async";

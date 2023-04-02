@@ -12,16 +12,45 @@ function createArray(size: number) {
 const BIG_ARRAY = createArray(SIZE);
 const SMALL_ARRAY = createArray((SIZE / 4) | 0);
 
-tape("iter", (assert: tape.Test) => {
+function square(x: number) {
+  return x * x;
+}
+
+function isEven(x: number) {
+  return x % 2 === 0;
+}
+
+tape("iter map/filter", (assert: tape.Test) => {
   new Suite()
     .add("iter", () => {
-      for (const _ of iter(BIG_ARRAY)
-        .map((x) => x * x)
-        .filter((x) => x % 2 === 0)) {
+      for (const _ of iter(BIG_ARRAY).map(square).filter(isEven)) {
       }
     })
     .add("native", () => {
-      for (const _ of BIG_ARRAY.map((x) => x * x).filter((x) => x % 2 === 0)) {
+      for (const _ of BIG_ARRAY.map(square).filter(isEven)) {
+      }
+    })
+    .on("cycle", function (this: Suite, event: Event) {
+      console.log(String(event.target));
+    })
+    .on("complete", function () {
+      assert.end();
+    })
+    .run({ async: true });
+});
+
+tape("iter merge/concat", (assert: tape.Test) => {
+  new Suite()
+    .add("iter", () => {
+      for (const _ of iter(BIG_ARRAY.map(square).filter(isEven)).merge(
+        iter(BIG_ARRAY.map(square).filter(isEven))
+      )) {
+      }
+    })
+    .add("native", () => {
+      for (const _ of BIG_ARRAY.map(square)
+        .filter(isEven)
+        .concat(BIG_ARRAY.map(square).filter(isEven))) {
       }
     })
     .on("cycle", function (this: Suite, event: Event) {
@@ -35,13 +64,13 @@ tape("iter", (assert: tape.Test) => {
 
 async function* nativeSquare(array: number[]) {
   for (const x of array) {
-    yield Promise.resolve(x * x);
+    yield Promise.resolve(square(x));
   }
 }
 
 async function* nativeFilter(array: number[]) {
   for (const x of array) {
-    if (await Promise.resolve(x % 2 === 0)) {
+    if (await Promise.resolve(isEven(x))) {
       yield x;
     }
   }
@@ -53,8 +82,8 @@ tape("asyncIter", (assert: tape.Test) => {
       "asyncIter",
       async (deferred: typeof Promise) => {
         for await (const _ of asyncIter(SMALL_ARRAY)
-          .map((x) => x * x)
-          .filter((x) => x % 2 === 0)) {
+          .map(square)
+          .filter(isEven)) {
         }
         deferred.resolve();
       },

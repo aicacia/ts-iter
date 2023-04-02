@@ -21,7 +21,7 @@ Iter.prototype.enumerate = function enumerate() {
   return new Enumerate(this);
 };
 
-function swap<A, B>(array: [A, B]): [B, A] {
+export function swap<A, B>(array: [A, B]): [B, A] {
   const tmp = array[0],
     newArray: [B, A] = array as any;
   newArray[0] = array[1];

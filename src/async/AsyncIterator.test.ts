@@ -46,6 +46,7 @@ tape("async custom asyncIter", async (assert: tape.Test) => {
 tape("async asyncIter generator", async (assert: tape.Test) => {
   async function* generator() {
     for (let i = 0; i < 3; i++) {
+      await waitMS(16);
       yield i;
     }
   }

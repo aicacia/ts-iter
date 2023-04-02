@@ -9,13 +9,14 @@ import type { AsyncMerge } from "./AsyncMerge";
 import type { AsyncSkip } from "./AsyncSkip";
 import type { AsyncStep } from "./AsyncStep";
 import type { AsyncTake } from "./AsyncTake";
-import type { IAsyncToMapFn, AsyncToMap } from "./AsyncToMap";
+import type { AsyncToMap } from "./AsyncToMap";
 import type { AsyncUnflatten, IAsyncUnflattenFn } from "./AsyncUnflatten";
 import type { AsyncEnumerate } from "./AsyncEnumerate";
 import type { AsyncPeekable } from "./AsyncPeekable";
 import type { AsyncFlatten } from "./AsyncFlatten";
 import type { AsyncReverse } from "./AsyncReverse";
 import { none, some, type Option } from "@aicacia/option";
+import { IToMapFn } from "../ToMap";
 
 export class AsyncIter<T>
   implements
@@ -30,7 +31,7 @@ export class AsyncIter<T>
     this._iter = iter;
   }
 
-  [Symbol.asyncIterator](): AsyncIterableIterator<T> {
+  [Symbol.asyncIterator](): AsyncIter<T> {
     return this;
   }
 
@@ -103,8 +104,8 @@ export class AsyncIter<T>
   }
 
   toMap<K extends string | number | symbol, V>(
-    keyFn?: IAsyncToMapFn<T, K>,
-    valueFn?: IAsyncToMapFn<T, V>
+    keyFn?: IToMapFn<T, K>,
+    valueFn?: IToMapFn<T, V>
   ): AsyncToMap<T, K, V>;
   toMap(_keyFn: any, _valueFn: any): any {
     throw new Error("async/AsyncToMap was not imported!");

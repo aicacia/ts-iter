@@ -13,6 +13,6 @@ export { AsyncReverse } from "./AsyncReverse";
 export { AsyncSkip } from "./AsyncSkip";
 export { AsyncStep } from "./AsyncStep";
 export { AsyncTake } from "./AsyncTake";
-export { AsyncToMap, type IAsyncToMapFn } from "./AsyncToMap";
+export { AsyncToMap } from "./AsyncToMap";
 export { AsyncUnflatten, type IAsyncUnflattenFn } from "./AsyncUnflatten";
 export { AsyncFlatten } from "./AsyncFlatten";

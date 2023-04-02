@@ -1,9 +1,5 @@
+import { IToMapFn, defaultKeyFn, defaultValueFn } from "../ToMap";
 import { AsyncIter } from "./AsyncIter";
-
-export type IAsyncToMapFn<A, B> = (value: A, index: number) => B;
-
-const defaultKeyFn = <A, B>(key: A): B => key as any;
-const defaultValueFn = <A, B>(value: A): B => value as any;
 
 export class AsyncToMap<
   T,
@@ -14,8 +10,8 @@ export class AsyncToMap<
 
   constructor(
     iter: AsyncIterator<T>,
-    keyFn: IAsyncToMapFn<T, K> = defaultKeyFn,
-    valueFn: IAsyncToMapFn<T, V> = defaultValueFn
+    keyFn: IToMapFn<T, K> = defaultKeyFn,
+    valueFn: IToMapFn<T, V> = defaultValueFn
   ) {
     super(iter as any as AsyncIterator<[K, V]>);
     this._map = ([value, index]) =>

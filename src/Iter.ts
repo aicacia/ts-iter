@@ -26,7 +26,7 @@ export class Iter<T>
     this._iter = iter;
   }
 
-  [Symbol.iterator](): IterableIterator<T> {
+  [Symbol.iterator](): Iter<T> {
     return this;
   }
 
